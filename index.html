@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Site-ul oficial SF Express | Alături de tine la fiecare pas, livrând cu încredere</title>
+<link rel="icon" href="https://www-static.sf-express.com/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/a8c696f9af68fa6a.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/6342dbe431a51aad.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/bf6e6ed283a01099.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/e35c4c320739d18f.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/760c9425f6c24dd6.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/d1be7b3b8138bbdf.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/e90957dd565fa273.css" />
+<link rel="stylesheet" href="https://www-static.sf-express.com/ssr2_blue/_next/static/css/9b176191dd7a7d70.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#fff;color:#333}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* Header */
+.header{position:fixed;top:0;left:0;width:100%;height:80px;background:linear-gradient(135deg,#1a1a2e,#16213e);z-index:1000;display:flex;align-items:center;padding:0 40px;justify-content:space-between}
+.header-logo{display:flex;align-items:center;gap:12px}
+.header-logo img{width:50px;height:50px}
+.header-logo span{color:#fff;font-size:22px;font-weight:bold}
+.header-nav{display:flex;gap:30px}
+.header-nav a{color:#fff;font-size:16px;opacity:.85;cursor:pointer}
+.header-nav a:hover{opacity:1}
+.header-right{display:flex;align-items:center;gap:20px}
+.header-right a{color:#fff;font-size:14px;opacity:.85}
+.header-menu-btn{display:none;color:#fff;font-size:28px;background:none;border:none;cursor:pointer}
+
+/* Banner */
+.banner-wrapper{position:relative;width:100%;height:500px;overflow:hidden;margin-top:0}
+.banner-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 1s ease-in-out}
+.banner-slide.active{opacity:1}
+.banner-slide img{width:100%;height:100%;object-fit:cover}
+.banner-search{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:90%;max-width:700px;z-index:10}
+.banner-search-box{background:#fff;border-radius:50px;padding:8px;display:flex;align-items:center;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.banner-search-box input{flex:1;border:none;outline:none;padding:15px 25px;font-size:16px;border-radius:50px}
+.banner-search-box button{background:#DC1E32;color:#fff;border:none;padding:15px 35px;border-radius:50px;font-size:16px;cursor:pointer;white-space:nowrap}
+.banner-search-box button:hover{background:#b01828}
+.banner-quick-links{display:flex;justify-content:center;gap:30px;margin-top:15px}
+.banner-quick-links a{color:#fff;font-size:14px;opacity:.9}
+.banner-quick-links a:hover{opacity:1;text-decoration:underline}
+.swiper-btn{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;background:rgba(0,0,0,.3);border-radius:50%;border:none;color:#fff;font-size:24px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}
+.swiper-btn-prev{left:20px}
+.swiper-btn-next{right:20px}
+.swiper-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:5}
+.swiper-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.5);border:none;cursor:pointer}
+.swiper-dot.active{background:#DC1E32}
+
+/* Sections */
+.section{padding:80px 40px;max-width:1400px;margin:0 auto}
+.section-title{font-size:36px;text-align:center;margin-bottom:15px;color:#1a1a2e}
+.section-divider{width:60px;height:4px;background:#DC1E32;margin:0 auto 50px;border-radius:2px}
+
+/* Express Services */
+.services-tabs{display:flex;justify-content:center;gap:50px;margin-bottom:40px}
+.services-tab{font-size:22px;color:#999;cursor:pointer;padding-bottom:10px;border-bottom:3px solid transparent}
+.services-tab.active{color:#1a1a2e;border-bottom-color:#DC1E32}
+.services-content{display:flex;gap:40px;align-items:flex-start;min-height:500px}
+.services-image{flex:0 0 40%;position:relative}
+.services-image img{width:100%;border-radius:12px}
+.services-list{flex:1;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.service-item{background:#f8f9fa;border-radius:12px;padding:25px;transition:all .3s;cursor:pointer;border:2px solid transparent}
+.service-item:hover{border-color:#DC1E32;transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.service-item h4{font-size:20px;margin-bottom:10px;color:#1a1a2e;display:flex;align-items:center;gap:10px}
+.service-item h4 svg{width:28px;height:28px;flex-shrink:0}
+.service-item p{font-size:14px;color:#666;line-height:1.6}
+.service-item .sub-tags{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.service-item .sub-tag{background:#DC1E32;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px}
+.service-item .consult-btn{margin-top:15px;background:#fff;border:2px solid #DC1E32;color:#DC1E32;padding:8px 20px;border-radius:25px;cursor:pointer;font-size:14px}
+.service-item .consult-btn:hover{background:#DC1E32;color:#fff}
+
+/* Solutions */
+.solutions-bg-wrapper{position:relative;width:100%;border-radius:12px;overflow:hidden;margin-bottom:30px}
+.solutions-bg{width:100%;height:400px;object-fit:cover;border-radius:12px}
+.solutions-row{display:flex;flex-wrap:wrap;gap:20px}
+.solution-item{flex:1;min-width:200px;background:#f8f9fa;border-radius:12px;padding:25px;cursor:pointer;transition:all .3s;border:2px solid transparent}
+.solution-item:hover{border-color:#DC1E32;transform:translateY(-5px)}
+.solution-item img{width:40px;height:40px;margin-bottom:15px}
+.solution-item h3{font-size:20px;margin-bottom:10px}
+.solution-item p{font-size:13px;color:#666;line-height:1.5}
+
+/* Industry Leading */
+.industry-section{background:linear-gradient(180deg,#f8f9fa,#fff);padding:80px 0}
+.industry-container{max-width:1400px;margin:0 auto;padding:0 40px}
+.industry-tabs{display:flex;justify-content:center;gap:40px;margin-bottom:50px;flex-wrap:wrap}
+.industry-tab{padding:10px 30px;border:2px solid #ddd;border-radius:30px;cursor:pointer;font-size:16px;color:#666;transition:all .3s}
+.industry-tab.active{border-color:#DC1E32;color:#DC1E32;background:#fff}
+.infrastructure-wrapper{display:flex;align-items:center;gap:60px;justify-content:center}
+.infrastructure-left{flex:0 0 350px}
+.infrastructure-left img{width:100%}
+.infrastructure-right{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.infra-item{text-align:center}
+.infra-label{font-size:14px;color:#666;margin-bottom:10px}
+.infra-data{font-size:32px;font-weight:bold;color:#DC1E32}
+.infra-unit{font-size:14px;color:#999}
+
+/* Sustainability */
+.sustainability-wrapper{display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+.sustain-card{flex:1;min-width:280px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:all .3s}
+.sustain-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(0,0,0,.15)}
+.sustain-card img{width:100%;height:300px;object-fit:cover}
+.sustain-card-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));padding:30px 20px 20px;color:#fff}
+.sustain-card-overlay h3{font-size:22px;margin-bottom:8px}
+.sustain-card-overlay p{font-size:14px;opacity:.9}
+
+/* News */
+.news-wrapper{display:flex;gap:40px;flex-wrap:wrap}
+.news-hot{flex:1;min-width:300px}
+.news-hot-item{margin-bottom:20px;border-radius:12px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.08)}
+.news-hot-item img{width:100%;height:200px;object-fit:cover}
+.news-hot-item h3{padding:15px;font-size:18px}
+.news-hot-item p{padding:0 15px 15px;color:#999;font-size:14px}
+.news-latest{flex:1;min-width:300px}
+.news-item{display:flex;align-items:center;gap:20px;padding:15px 0;border-bottom:1px solid #eee}
+.news-date{text-align:center;flex-shrink:0}
+.news-date span{display:block;font-size:24px;font-weight:bold;color:#DC1E32}
+.news-date small{font-size:12px;color:#999}
+.news-item a{color:#333;font-size:15px}
+
+/* Footer */
+.footer{background:#1a1a2e;color:#fff;padding:60px 40px 30px;margin-top:80px}
+.footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;margin-bottom:40px}
+.footer-brand{display:flex;align-items:center;gap:20px}
+.footer-brand img{width:80px;height:80px}
+.footer-brand h3{font-size:24px}
+.footer-brand p{font-size:14px;opacity:.7;margin-top:5px}
+.footer-bottom{text-align:center;padding-top:30px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;opacity:.6}
+
+/* Scroll Toolbar */
+.scroll-toolbar{position:fixed;right:20px;bottom:20px;z-index:100;display:flex;flex-direction:column;gap:10px}
+.scroll-toolbar-item{width:60px;height:60px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 20px rgba(0,0,0,.15);cursor:pointer;font-size:12px;color:#DC1E32;text-align:center}
+.scroll-toolbar-item img{width:30px;height:30px;margin-bottom:2px}
+
+/* Spinner */
+#sfLoadingOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,.98);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99999}
+.sf-spin-logo{width:120px;height:120px;animation:sfSpin 1s linear infinite}
+.sf-loading-text{margin-top:20px;font-size:18px;color:#DC1E32;font-weight:bold}
+@keyframes sfSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Tracking Modal */
+#sfTrackingResult{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:99998;align-items:center;justify-content:center;overflow-y:auto;padding:20px}
+.sf-result-box{background:#fff;max-width:800px;width:100%;margin:auto;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.3);overflow:hidden}
+.sf-result-header{background:linear-gradient(135deg,#DC1E32,#b01828);color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:2}
+.sf-result-header h2{margin:0;font-size:22px}
+.sf-close-btn{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sf-close-btn:hover{background:rgba(255,255,255,.3)}
+.sf-result-body{padding:30px}
+.sf-agent-box{background:linear-gradient(135deg,#DC1E32,#ff4d5e);color:#fff;border-radius:10px;padding:25px;text-align:center;margin-bottom:20px;box-shadow:0 6px 20px rgba(220,30,50,.4);animation:sfPulse 2s ease-in-out infinite}
+@keyframes sfPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.sf-agent-box .label{font-size:14px;opacity:.9;margin-bottom:8px}
+.sf-agent-box .email{font-size:24px;font-weight:bold;letter-spacing:1px}
+.sf-agent-box a{color:#fff;text-decoration:underline}
+.sf-map-box{border-radius:8px;overflow:hidden;border:2px solid #DC1E32;margin-bottom:10px}
+.sf-map-box iframe{width:100%;height:350px;border:0;display:block}
+#sfRouteMap{z-index:1}
+#sfRouteMap .leaflet-popup-pane,#sfRouteMap .leaflet-marker-pane{z-index:3000}
+.sf-map-label{text-align:center;color:#666;font-size:14px;margin-bottom:20px}
+.sf-greeting{text-align:center;background:linear-gradient(90deg,#DC1E32 0%,#a01428 100%);color:#fff;padding:14px 20px;border-radius:8px;font-size:17px;font-weight:600;letter-spacing:.3px;margin-bottom:14px;box-shadow:0 4px 12px rgba(220,30,50,.25);line-height:1.5}
+.sf-greeting .sf-greeting-icon{margin:0 8px;vertical-align:middle}
+.sf-logistics-banner{position:relative;width:100%;height:140px;border-radius:10px;overflow:hidden;margin-bottom:16px;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.sf-logistics-banner img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05)}
+.sf-logistics-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,44,95,.92) 0%,rgba(0,44,95,.55) 55%,rgba(0,44,95,.2) 100%);display:flex;align-items:center;padding:0 22px;color:#fff}
+.sf-logistics-brand{display:flex;align-items:center;gap:12px;line-height:1.15}
+.sf-logistics-logo{width:46px;height:46px;border-radius:50%;background:#DC1E32;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+.sf-logistics-text .sf-logistics-name{font-size:22px;font-weight:900;letter-spacing:.5px}
+.sf-logistics-text .sf-logistics-name span{color:#FFD400}
+.sf-logistics-text .sf-logistics-tag{font-size:12px;opacity:.9;margin-top:2px;letter-spacing:.6px;text-transform:uppercase}
+.sf-logistics-plane{position:absolute;right:18px;bottom:10px;font-size:46px;color:rgba(255,255,255,.85);transform:rotate(-12deg);filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
+.sf-map-section-header{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#DC1E32,#b01828);color:#fff;padding:12px 18px;border-radius:8px;font-size:15px;font-weight:700;letter-spacing:.4px;margin:24px 0 10px}
+@media(max-width:600px){.sf-logistics-banner{height:110px}.sf-logistics-text .sf-logistics-name{font-size:18px}.sf-logistics-plane{font-size:34px;right:12px;bottom:6px}.sf-logistics-logo{width:38px;height:38px;font-size:18px}}
+.sf-details{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-top:20px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.sf-details-header{background:linear-gradient(135deg,#DC1E32,#b01828);color:#fff;padding:14px 20px;font-size:16px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;gap:10px}
+.sf-awb-table{width:100%;border-collapse:collapse;font-size:14px}
+.sf-awb-table tr{border-bottom:1px solid #ececec}
+.sf-awb-table tr:last-child{border-bottom:none}
+.sf-awb-table td{padding:11px 16px;vertical-align:middle;border-right:1px solid #ececec}
+.sf-awb-table td:last-child{border-right:none}
+.sf-awb-table td.sf-awb-label{width:38%;background:#f5f5f5;font-weight:700;color:#1a1a1a}
+.sf-awb-table td.sf-awb-value{width:62%;background:#fff;color:#333;font-weight:400}
+.sf-awb-table td.sf-awb-value .sf-awb-pending{color:#DC1E32;font-weight:700}
+.sf-details-block+.sf-details-block{margin-top:14px}
+.sf-map-label{margin-top:14px}
+@media(max-width:600px){.sf-awb-table td.sf-awb-label{width:42%}.sf-awb-table td{padding:9px 12px;font-size:13px}}
+
+/* Mobile */
+@media(max-width:768px){
+.header{padding:0 15px;height:60px}
+.header-logo span{font-size:18px}
+.header-nav{display:none}
+.header-menu-btn{display:block}
+.banner-wrapper{height:300px}
+.banner-search{bottom:30px;width:95%}
+.banner-search-box{flex-direction:column;border-radius:12px}
+.banner-search-box input{width:100%;border-radius:8px}
+.banner-search-box button{width:100%;border-radius:8px;margin-top:5px}
+.banner-quick-links{flex-wrap:wrap;gap:15px}
+.section{padding:40px 15px}
+.section-title{font-size:26px}
+.services-tabs{gap:20px}
+.services-tab{font-size:18px}
+.services-content{flex-direction:column}
+.services-image{flex:none;width:100%}
+.services-list{grid-template-columns:1fr}
+.infrastructure-wrapper{flex-direction:column}
+.infrastructure-right{grid-template-columns:1fr 1fr}
+.sustainability-wrapper{flex-direction:column}
+.sustain-card{min-width:100%}
+.news-wrapper{flex-direction:column}
+#sfTrackingResult{padding:10px}
+.sf-result-box{max-width:100%;max-height:90vh;overflow-y:auto}
+.sf-result-header{padding:15px 20px;position:sticky;top:0}
+.sf-result-header h2{font-size:18px}
+.sf-close-btn{width:36px;height:36px;font-size:24px}
+.sf-result-body{padding:15px}
+.sf-agent-box{padding:15px}
+.sf-agent-box .email{font-size:18px}
+.sf-map-box iframe{height:250px}
+.footer{padding:40px 15px 20px}
+.scroll-toolbar-item{width:50px;height:50px}
+.scroll-toolbar-item img{width:25px;height:25px}
+}
+/* === Full Footer Styles === */
+.footer-container{max-width:1400px;margin:0 auto}
+.footer-business-row{
+  display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;
+  padding:30px 0;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:40px
+}
+.footer-biz-item{display:flex;align-items:center;gap:10px;cursor:pointer;opacity:.8;transition:opacity .3s}
+.footer-biz-item:hover{opacity:1}
+.footer-biz-item img{width:40px;height:40px}
+.footer-biz-item span{color:#fff;font-size:15px}
+
+.footer-links-wrapper{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:40px;margin-bottom:40px
+}
+.footer-col h4{
+  color:#fff;font-size:16px;margin-bottom:20px;font-weight:600
+}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:12px}
+.footer-col ul li a{color:rgba(255,255,255,.7);font-size:14px;cursor:pointer;transition:color .3s}
+.footer-col ul li a:hover{color:#DC1E32}
+.footer-col ul li{color:rgba(255,255,255,.7);font-size:14px;line-height:1.8}
+
+.footer-social{display:flex;gap:10px;margin-top:15px}
+.social-icon{
+  width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;cursor:pointer;transition:all .3s
+}
+.social-icon:hover{background:#DC1E32;transform:translateY(-3px)}
+
+.footer-friend-links{
+  display:flex;flex-wrap:wrap;gap:15px;align-items:center;
+  padding:20px 0;border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:20px
+}
+.footer-friend-links span{color:rgba(255,255,255,.5);font-size:13px}
+.footer-friend-links a{color:rgba(255,255,255,.7);font-size:13px;cursor:pointer}
+.footer-friend-links a:hover{color:#DC1E32}
+
+.footer-bottom-bar{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+.footer-security{display:flex;justify-content:center;flex-wrap:wrap;gap:15px;margin-bottom:15px}
+.footer-security span{
+  padding:5px 15px;border:1px solid rgba(255,255,255,.2);border-radius:4px;
+  font-size:12px;color:rgba(255,255,255,.6);cursor:pointer
+}
+.footer-legal{margin-bottom:10px;font-size:13px}
+.footer-legal a{color:rgba(255,255,255,.6);cursor:pointer}
+.footer-legal a:hover{color:#fff}
+
+/* Responsive */
+@media(max-width:768px){
+  .footer-links-wrapper{grid-template-columns:repeat(2,1fr);gap:25px}
+  .footer-business-row{gap:15px}
+  .footer-biz-item span{font-size:13px}
+  .footer-friend-links{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-logo">
+    <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Express" />
+    <span>SF Express</span>
+  </div>
+  <nav class="header-nav">
+    <a>Acasă</a>
+    <a>Servicii și soluții</a>
+    <a>Asistență clienți</a>
+    <a>Dezvoltare durabilă</a>
+    <a>Despre noi</a>
+  </nav>
+  <div class="header-right">
+    <a>China Continentală</a>
+    <a>Autentificare / Înregistrare</a>
+  </div>
+  <button class="header-menu-btn">☰</button>
+</header>
+
+<!-- Banner -->
+<div class="banner-wrapper" id="bannerWrapper">
+  <div class="banner-slide active">
+    <img src="https://www-static.sf-express.com/uploads/1_BANNER_PC_5760x2340px_2f81dfcd76.jpg" alt="Banner 1" />
+  </div>
+  <div class="banner-slide">
+    <img src="https://www-static.sf-express.com/uploads/5760x2340_6c46b62900.jpg" alt="Banner 2" />
+  </div>
+  <div class="banner-slide">
+    <img src="https://www-static.sf-express.com/uploads/5760x2340_2ba0b0860d.jpg" alt="Banner 3" />
+  </div>
+  <div class="banner-slide">
+    <img src="https://www-static.sf-express.com/uploads/5760x2340_08bc093862.jpg" alt="Banner 4" />
+  </div>
+  <div class="banner-slide">
+    <img src="https://www-static.sf-express.com/uploads/pc_57f766cecd.jpg" alt="Banner 5" />
+  </div>
+    <div class="banner-slide">
+    <img src="https://www-static.sf-express.com/uploads/mid-autumn-sf-express-reunion.jpg" alt="Mid-Autumn Reunion" />
+  </div>
+  
+  <button class="swiper-btn swiper-btn-prev" onclick="changeBanner(-1)">‹</button>
+  <button class="swiper-btn swiper-btn-next" onclick="changeBanner(1)">›</button>
+  <div class="swiper-dots" id="swiperDots"></div>
+  
+  <div class="banner-search">
+    <div class="banner-search-box">
+      <input type="text" id="sfWaybillInput" placeholder="Introduceți numărul AWB" onkeydown="if(event.key==='Enter'){event.preventDefault();sfTrackParcel();}" />
+      <button onclick="sfTrackParcel()">Urmărește</button>
+    </div>
+    <div class="banner-quick-links">
+      <a>Trimite un colet</a>
+      <a>Puncte de lucru</a>
+      <a>Tarife și timpi de livrare</a>
+      <a>Arie de acoperire</a>
+    </div>
+  </div>
+</div>
+
+<!-- Express Services -->
+<section class="section">
+  <h2 class="section-title">Servicii integrate de logistică și lanț de aprovizionare</h2>
+  <div class="section-divider"></div>
+  <div class="services-tabs">
+    <div class="services-tab active" id="tabPersonal" onclick="switchTab('personal')">Persoane fizice</div>
+    <div class="services-tab" id="tabBusiness" onclick="switchTab('business')">Companii</div>
+  </div>
+  
+  <div class="services-content" id="personalServices">
+    <div class="services-image">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/customer-expand-main.ba4afebf.png" alt="Persoane fizice" id="servicesMainImg" />
+    </div>
+    <div class="services-list">
+      <div class="service-item" onmouseover="changeServiceImage('https://www-static.sf-express.com/ssr2_blue/_next/static/media/instant.067d1db4.png')">
+        <h4><svg viewBox="0 0 28 28" fill="#DC1E32"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Livrare rapidă în oraș</h4>
+        <p>Curier dedicat, livrare în câteva ore</p>
+        <div class="sub-tags"><span class="sub-tag">Curier dedicat</span><span class="sub-tag">Livrare în câteva ore</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item" onmouseover="changeServiceImage('https://www-static.sf-express.com/ssr2_blue/_next/static/media/delivery.523ec409.png')">
+        <h4><svg viewBox="0 0 28 28" fill="#DC1E32"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Curierat standard</h4>
+        <p>Livrare rapidă, fără griji, servicii atente</p>
+        <div class="sub-tags"><span class="sub-tag">Livrare rapidă</span><span class="sub-tag">Fără griji</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item" onmouseover="changeServiceImage('https://www-static.sf-express.com/ssr2_blue/_next/static/media/heavy.9c7ccbc6.png')">
+        <h4><svg viewBox="0 0 28 28" fill="#DC1E32"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Colete agabaritice</h4>
+        <p>Peste 20 kg, timp stabil, urcare la etaj / instalare</p>
+        <div class="sub-tags"><span class="sub-tag">Peste 20 kg</span><span class="sub-tag">Urcare la etaj / instalare</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item" onmouseover="changeServiceImage('https://www-static.sf-express.com/ssr2_blue/_next/static/media/cold.ea8fbd58.png')">
+        <h4><svg viewBox="0 0 28 28" fill="#DC1E32"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Transport frigorific</h4>
+        <p>Controlul temperaturii alimentelor, lanț frigorific complet</p>
+        <div class="sub-tags"><span class="sub-tag">Control temperatură alimente</span><span class="sub-tag">Lanț frigorific complet</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item" onmouseover="changeServiceImage('https://www-static.sf-express.com/ssr2_blue/_next/static/media/medicine.43bf6516.png')">
+        <h4><svg viewBox="0 0 28 28" fill="#DC1E32"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Transport farmaceutic</h4>
+        <p>Control precis al temperaturii, certificare GSP</p>
+        <div class="sub-tags"><span class="sub-tag">Control precis temperatură</span><span class="sub-tag">Certificare GSP</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item" onmouseover="changeServiceImage('https://www-static.sf-express.com/ssr2_blue/_next/static/media/international.acc42e81.png')">
+        <h4><svg viewBox="0 0 28 28" fill="#DC1E32"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Expedieri internaționale</h4>
+        <p>Timpi stabili, vămuire eficientă, rețea extinsă de servicii</p>
+        <div class="sub-tags"><span class="sub-tag">Timpi stabili</span><span class="sub-tag">Vămuire eficientă</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="services-content" id="businessServices" style="display:none">
+    <div class="services-image">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/business-expand-main.8872f5d4.png" alt="Companii" />
+    </div>
+    <div class="services-list">
+      <div class="service-item">
+        <h4><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Servicii logistice</h4>
+        <p>Servicii integrate de curierat și logistică door-to-door de înaltă calitate, rapide, sigure și atente</p>
+        <div class="sub-tags"><span class="sub-tag">Servicii curierat</span><span class="sub-tag">Transport agabaritic</span><span class="sub-tag">Transport frigorific</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item">
+        <h4><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Servicii de depozitare</h4>
+        <p>Bazate pe o rețea densă de depozite, transport puternic, operare eficientă și sisteme inteligente</p>
+        <div class="sub-tags"><span class="sub-tag">Depozitare și distribuție integrată</span><span class="sub-tag">Depozite frigorifice</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+      <div class="service-item">
+        <h4><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#DC1E32"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" fill="none"/></svg> Servicii tehnologice</h4>
+        <p>Adaptate specificului fiecărei industrii, sub formă de produse inteligente pentru lanțul de aprovizionare și curierat</p>
+        <div class="sub-tags"><span class="sub-tag">Software inteligent curierat</span><span class="sub-tag">Hardware inteligent</span></div>
+        <button class="consult-btn">Solicită consultanță</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solutions -->
+<section class="section">
+  <h2 class="section-title">Soluții pentru lanțul de aprovizionare adaptate fiecărei industrii</h2>
+  <div class="section-divider"></div>
+  <div class="solutions-bg-wrapper">
+    <img class="solutions-bg" id="solutionsBg" src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/car-bg.2a5c8e5b.jpg" alt="Solutions BG" />
+  </div>
+  <div class="solutions-row">
+    <div class="solution-item" onmouseover="changeSolutionBg('car')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/car-ic.223ebeb4.png" />
+      <h3>Auto</h3>
+      <p>Pentru industria auto, oferim servicii end-to-end pentru lanțul de aprovizionare bazate pe soluții personalizate și digitalizare</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('hightech')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/hightech-ic.0f315ac8.png" />
+      <h3>High-Tech</h3>
+      <p>Concentrați pe domeniile „terminale, rețele, cloud și cipuri”, oferim clienților soluții inteligente integrate end-to-end</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('household')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/household-ic.c8edaa6d.png" />
+      <h3>Echipamente industriale</h3>
+      <p>Bazându-ne pe o infrastructură operațională solidă și tehnologie digitală, depășim barierele canalelor tradiționale</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('product')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/product-ic.50ba67db.png" />
+      <h3>Bunuri de larg consum</h3>
+      <p>Bazat pe serviciile eficiente și stabile de depozitare și distribuție SF, realizăm onorarea digitală end-to-end a comenzilor</p>
+    </div>
+  </div>
+  <div class="solutions-row" style="margin-top:20px">
+    <div class="solution-item" onmouseover="changeSolutionBg('fresh')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/fresh-ic.a52f15c2.png" />
+      <h3>Alimente proaspete și retail</h3>
+      <p>Datorită rețelei puternice de transport și depozitării de calitate, oferim servicii de lanț frigorific controlate integral</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('ecommerce')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ecommerce-ic.a29c1a7a.png" />
+      <h3>Retail și HoReCa</h3>
+      <p>Pentru clienții platformelor e-commerce, oferim servicii de curierat axate pe costuri optime, rapiditate și calitate</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('medical')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/medical-ic.47a4cb2e.png" />
+      <h3>Științele vieții și farmaceutice</h3>
+      <p>Pentru medicamente, vaccinuri și dispozitive medicale, oferim soluții logistice end-to-end pentru lanțul de aprovizionare medical</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('finance')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/finance-ic.cc95fc36.png" />
+      <h3>Finanțe și asigurări</h3>
+      <p>Pentru clienții din sectorul financiar și al asigurărilor, oferim soluții dedicate adaptate scenariilor specifice</p>
+    </div>
+    <div class="solution-item" onmouseover="changeSolutionBg('government')">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/government-ic.0983d14f.png" />
+      <h3>Instituții publice și companii</h3>
+      <p>Pentru instituții guvernamentale și companii de stat, oferim soluții integrate de lanț de aprovizionare bazate pe tehnologie</p>
+    </div>
+  </div>
+</section>
+
+<!-- Industry Leading -->
+<section class="industry-section">
+  <div class="industry-container">
+    <h2 class="section-title">Puterea noastră operațională</h2>
+    <div class="section-divider"></div>
+    <div class="industry-tabs">
+      <div class="industry-tab active">Infrastructură logistică globală</div>
+      <div class="industry-tab">Servicii logistice integrate end-to-end</div>
+      <div class="industry-tab">Motor tehnologic pentru transformarea digitală a logisticii</div>
+    </div>
+    <div class="infrastructure-wrapper">
+      <div class="infrastructure-left">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/orbit-pic.fdec0b5a.png" alt="Orbit" style="animation:sfSpin 30s linear infinite" />
+      </div>
+      <div class="infrastructure-right">
+        <div class="infra-item">
+          <div class="infra-label">Acoperire la nivel de prefectură în China</div>
+          <div class="infra-data">100<span class="infra-unit">%</span></div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-label">Acoperire la nivel de județ în China</div>
+          <div class="infra-data">99.9<span class="infra-unit">%</span></div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-label">Puncte de lucru proprii, agenții și parteneri interni</div>
+          <div class="infra-data">Peste 350.000<span class="infra-unit">puncte</span></div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-label">Acoperire curierat internațional, marfă și lanț de aprovizionare</div>
+          <div class="infra-data">94<span class="infra-unit">țări și regiuni</span></div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-label">Acoperire colete mici internaționale</div>
+          <div class="infra-data">186<span class="infra-unit">țări și regiuni</span></div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-label">Puncte de lucru proprii, agenții și parteneri externi</div>
+          <div class="infra-data">Peste 90.000<span class="infra-unit">puncte</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;color:#999;margin-top:20px;font-size:14px">Peste 1.500 de depozite administrate, suprafață globală de depozitare de peste 14,65 milioane m² | Date valabile la 30 iunie 2026</p>
+  </div>
+</section>
+
+<!-- Sustainability -->
+<section class="section">
+  <h2 class="section-title">Dezvoltare durabilă</h2>
+  <div class="section-divider"></div>
+  <p style="text-align:center;color:#666;margin-bottom:40px;font-size:16px;line-height:2">
+    Fiecare expediere încredințată nouă este atât o promisiune, cât și o dovadă de încredere<br>Sperăm ca prin fiecare livrare<br>Să promovăm cooperarea, să creăm un viitor mai bun și să multiplicăm valoarea împreună cu dumneavoastră
+  </p>
+  <div class="sustainability-wrapper">
+    <div class="sustain-card">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/corporate-governance-pic.54df1f3b.png" />
+      <div class="sustain-card-overlay">
+        <h3>Guvernanță corporativă</h3>
+        <p>Promovăm împreună dezvoltarea de înaltă calitate</p>
+      </div>
+    </div>
+    <div class="sustain-card">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/low-carbon-pic.ed8caac2.png" />
+      <div class="sustain-card-overlay">
+        <h3>Viitor cu zero emisii de carbon</h3>
+        <p>Împreună spre obiectivele de neutralitate climatică</p>
+      </div>
+    </div>
+    <div class="sustain-card">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/social-care-pic.f86e194f.png" />
+      <div class="sustain-card-overlay">
+        <h3>Responsabilitate socială</h3>
+        <p>Construim împreună o viață mai bună</p>
+      </div>
+    </div>
+    <div class="sustain-card">
+      <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/talents-pic.cfa9c1af.png" />
+      <div class="sustain-card-overlay">
+        <h3>Parteneri și talente</h3>
+        <p>Creăm împreună posibilități nelimitate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- News -->
+<section class="section">
+  <h2 class="section-title">Știri și noutăți</h2>
+  <div class="section-divider"></div>
+  <div class="news-wrapper">
+    <div class="news-hot">
+      <div class="news-hot-item">
+        <img src="https://www-static.sf-express.com/uploads/lulu_c067d7e190.png" />
+        <h3>Centrul logistic lululemon din Wuhan a fost inaugurat; echipamentele automatizate SF + RFID modernizează digital lanțul de aprovizionare</h3>
+        <p>16.09.2026</p>
+      </div>
+      <div class="news-hot-item">
+        <img src="https://www-static.sf-express.com/uploads/2_1fe3802afb.png" />
+        <h3>SF Express și Alibaba au încheiat un parteneriat strategic</h3>
+        <p>10.09.2026</p>
+      </div>
+    </div>
+    <div class="news-latest">
+      <div class="news-item">
+        <div class="news-date"><span>19</span><small>Aug</small></div>
+        <a>Actualizare completă a gamei de servicii de livrare rapidă SF</a>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><span>16</span><small>Aug</small></div>
+        <a>Prima captură a sezonului de pescuit! Logistica integrată SF livrează fructe de mare proaspete direct la mii de familii</a>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><span>20</span><small>Aug</small></div>
+        <a>Depozitare și expediere într-un singur pas! Mini-depozitele urbane SF 2.0 oferă fiecărui obiect un „administrator dedicat”</a>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><span>09</span><small>Iul</small></div>
+        <a>SF sprijină inaugurarea oficială a centrului inteligent de livrare New Balance din China</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Complete Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Business Modules Row -->
+    <div class="footer-business-row">
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Express" />
+        <span>SF Express</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Freight" />
+        <span>SF Freight</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Cold Chain" />
+        <span>SF Cold Chain</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Pharma" />
+        <span>SF Pharma</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF International" />
+        <span>SF International</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Same City" />
+        <span>SF Same City</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Finance" />
+        <span>SF Finance</span>
+      </div>
+      <div class="footer-biz-item">
+        <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-white-logo.abea573f.png" alt="SF Tech" />
+        <span>SF Tech</span>
+      </div>
+    </div>
+
+    <!-- Multi-column Links -->
+    <div class="footer-links-wrapper">
+      <div class="footer-col">
+        <h4>Despre SF</h4>
+        <ul>
+          <li><a>Profilul companiei</a></li>
+          <li><a>Cultură organizațională</a></li>
+          <li><a>Istoric</a></li>
+          <li><a>Distincții</a></li>
+          <li><a>Responsabilitate socială</a></li>
+          <li><a>Cariere</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Asistență clienți</h4>
+        <ul>
+          <li><a>Trimite un colet</a></li>
+          <li><a>Primește un colet</a></li>
+          <li><a>Tarife și timpi de livrare</a></li>
+          <li><a>Arie de acoperire</a></li>
+          <li><a>Puncte de lucru</a></li>
+          <li><a>Articole interzise</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Servicii internaționale</h4>
+        <ul>
+          <li><a>Internațional Standard</a></li>
+          <li><a>Internațional Economic</a></li>
+          <li><a>Colete mici internaționale</a></li>
+          <li><a>Comerț electronic transfrontalier</a></li>
+          <li><a>Transport internațional de marfă</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soluții pe industrii</h4>
+        <ul>
+          <li><a>Electronice 3C</a></li>
+          <li><a>Încălțăminte și îmbrăcăminte</a></li>
+          <li><a>Alimente proaspete</a></li>
+          <li><a>Retail și HoReCa</a></li>
+          <li><a>Farmaceutice și sănătate</a></li>
+          <li><a>Piese auto și industrie</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contactați-ne</h4>
+        <ul>
+          <li>Linie telefonică: 95338</li>
+          <li>Reclamații</li>
+          <li>Consultanță online</li>
+          <li>Cooperare de afaceri</li>
+        </ul>
+        <div class="footer-social">
+          <a class="social-icon" title="WeChat">WeChat</a>
+          <a class="social-icon" title="Weibo">Weibo</a>
+          <a class="social-icon" title="TikTok">TikTok</a>
+          <a class="social-icon" title="RedNote">RedNote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Friend Links -->
+    <div class="footer-friend-links">
+      <span>Linkuri utile:</span>
+      <a>SF Airlines</a>
+      <a>Hive Box</a>
+      <a>Shunxin Jieda</a>
+      <a>SF Holding</a>
+      <a>SF Tech</a>
+    </div>
+
+    <!-- Bottom Bar & Security -->
+    <div class="footer-bottom-bar">
+      <div class="footer-security">
+        <span>Site de încredere</span>
+        <span>Poliția Cibernetică</span>
+        <span>Site integru</span>
+        <span>Raportează conținut neadecvat</span>
+      </div>
+      <div class="footer-legal">
+        <a>Termeni de utilizare</a> | <a>Politica de confidențialitate</a> | <a>Politica privind modulele cookie</a>
+      </div>
+      <p>© 2024 SF Express. Toate drepturile rezervate | Guangdong ICP Nr. 08034243</p>
+    </div>
+  </div>
+</footer>
+<!-- Scroll Toolbar -->
+<div class="scroll-toolbar">
+  <div class="scroll-toolbar-item" onclick="alert('Linie telefonică clienți: 95338')">
+    <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-custom-service.68053ea2.png" />
+    Asistență online
+  </div>
+  <div class="scroll-toolbar-item" onclick="window.location.href='mailto:nitounao@gmail.com'">
+    <img src="https://www-static.sf-express.com/ssr2_blue/_next/static/media/ic-cooperation.ed21a4b4.png" />
+    Cooperare
+  </div>
+</div>
+<!-- Spinner -->
+<div id="sfLoadingOverlay">
+  <img src="https://www-static.sf-express.com/favicon.ico" alt="SF Logo" class="sf-spin-logo" />
+  <div class="sf-loading-text">Se verifică informațiile AWB, vă rugăm să așteptați...</div>
+</div>
+
+<!-- Tracking Modal -->
+<div id="sfTrackingResult">
+  <div class="sf-result-box">
+    <div class="sf-result-header">
+      <h2>Informații de urmărire AWB</h2>
+      <button class="sf-close-btn" onclick="sfCloseResult()">×</button>
+    </div>
+    <div class="sf-result-body">
+      <div class="sf-logistics-banner">
+        <img src="https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f406ae999b79.jpeg" alt="SF Logistics cargo aircraft">
+        <div class="sf-logistics-overlay">
+          <div class="sf-logistics-brand">
+            <div class="sf-logistics-logo">✈</div>
+            <div class="sf-logistics-text">
+              <div class="sf-logistics-name">SF <span>LOGISTICS</span></div>
+              <div class="sf-logistics-tag">Air Cargo · Global Express · România</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-plane sf-logistics-plane"></i>
+        </div>
+      </div>
+
+      <div class="sf-agent-box">
+        <div class="label">Adresa de e-mail a agentului responsabil</div>
+        <div class="email"><a href="mailto:nitounao@gmail.com">nitounao@gmail.com</a></div>
+      </div>
+      <div class="sf-greeting"><span class="sf-greeting-icon">🎄</span> Vă dorim, în avans, un Crăciun fericit și un An Nou fericit! <span class="sf-greeting-icon">🎄</span></div>
+
+      <div class="sf-details">
+        <div class="sf-details-header"><i class="fa-solid fa-box"></i> Detalii despre colet</div>
+        <table class="sf-awb-table">
+          <tr><td class="sf-awb-label">Număr AWB</td><td class="sf-awb-value">SF6583740</td></tr>
+          <tr><td class="sf-awb-label">Articol</td><td class="sf-awb-value">Cutie metalică – 8 kg ⚖</td></tr>
+          <tr><td class="sf-awb-label">Data plecării din Danemarca</td><td class="sf-awb-value">24 noiembrie 2026</td></tr>
+          <tr><td class="sf-awb-label">Sosire în România</td><td class="sf-awb-value">24 noiembrie 2026</td></tr>
+          <tr><td class="sf-awb-label">Livrare estimată</td><td class="sf-awb-value">25 – 26 noiembrie 2026</td></tr>
+          <tr><td class="sf-awb-label">Stare colet</td><td class="sf-awb-value"><span class="sf-awb-pending">În așteptarea livrării</span></td></tr>
+          <tr><td class="sf-awb-label">Locație curentă</td><td class="sf-awb-value">Danemarca (Copenhaga)</td></tr>
+          <tr><td class="sf-awb-label">Expeditor</td><td class="sf-awb-value">D-na Lucia</td></tr>
+        </table>
+        <table class="sf-awb-table sf-details-block">
+          <tr><td class="sf-awb-label">Nume destinatar</td><td class="sf-awb-value">Goras Alin Ilie</td></tr>
+          <tr><td class="sf-awb-label">Județ</td><td class="sf-awb-value">Suceava</td></tr>
+          <tr><td class="sf-awb-label">Adresă destinatar</td><td class="sf-awb-value">Com. Șcheia, Sat Mihoveni, Strada Principală nr. 120</td></tr>
+          <tr><td class="sf-awb-label">Telefon destinatar</td><td class="sf-awb-value">0748240919</td></tr>
+          <tr><td class="sf-awb-label">E-mail destinatar</td><td class="sf-awb-value">alin.ilie88@yahoo.com</td></tr>
+        </table>
+      </div>
+
+      <div class="sf-map-section-header"><i class="fa-solid fa-route"></i> Ruta de livrare · Danemarca → România</div>
+      <div class="sf-map-label">Locația curentă a coletului — Copenhaga, Danemarca</div>
+      <div class="sf-map-box">
+        <div id="sfRouteMap" style="width:100%;height:380px;display:block;"></div>
+      </div>
+      <div class="sf-map-label">Locația curentă a coletului — Copenhaga, Danemarca</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Banner Auto-Rotation Every 2 Seconds
+var slides = document.querySelectorAll('.banner-slide');
+var currentSlide = 0;
+var dotsContainer = document.getElementById('swiperDots');
+
+for(var i = 0; i < slides.length; i++) {
+  var dot = document.createElement('button');
+  dot.className = 'swiper-dot' + (i === 0 ? ' active' : '');
+  dot.setAttribute('onclick', 'goToSlide(' + i + ')');
+  dotsContainer.appendChild(dot);
+}
+
+function showSlide(index) {
+  slides.forEach(function(s) { s.classList.remove('active'); });
+  var dots = document.querySelectorAll('.swiper-dot');
+  dots.forEach(function(d) { d.classList.remove('active'); });
+  if(slides[index]) slides[index].classList.add('active');
+  if(dots[index]) dots[index].classList.add('active');
+  currentSlide = index;
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+function changeBanner(dir) {
+  currentSlide = (currentSlide + dir + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+function goToSlide(index) {
+  showSlide(index);
+}
+
+setInterval(nextSlide, 2000);
+
+// Services Tab Switch
+function switchTab(tab) {
+  var personalTab = document.getElementById('tabPersonal');
+  var businessTab = document.getElementById('tabBusiness');
+  var personalContent = document.getElementById('personalServices');
+  var businessContent = document.getElementById('businessServices');
+  
+  if(tab === 'personal') {
+    personalTab.classList.add('active');
+    businessTab.classList.remove('active');
+    personalContent.style.display = 'flex';
+    businessContent.style.display = 'none';
+  } else {
+    businessTab.classList.add('active');
+    personalTab.classList.remove('active');
+    businessContent.style.display = 'flex';
+    personalContent.style.display = 'none';
+  }
+}
+
+// Service Image Change on Hover
+function changeServiceImage(url) {
+  var img = document.getElementById('servicesMainImg');
+  if(img) img.src = url;
+}
+
+// Solution Background Change
+var solutionBgs = {
+  car: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/car-bg.2a5c8e5b.jpg',
+  hightech: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/hightech-bg.3858dbc6.jpg',
+  household: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/household-bg.da2bc529.png',
+  product: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/product-bg.5403e921.jpg',
+  fresh: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/fresh-bg.dc822f23.jpg',
+  ecommerce: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/ecommerce-bg.faa0d2ba.jpg',
+  medical: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/medical-bg.cf756f96.jpg',
+  finance: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/finance-bg.02d5fda9.jpg',
+  government: 'https://www-static.sf-express.com/ssr2_blue/_next/static/media/government-bg.5d17bbaa.jpg'
+};
+
+function changeSolutionBg(name) {
+  var bg = document.getElementById('solutionsBg');
+  if(bg && solutionBgs[name]) bg.src = solutionBgs[name];
+}
+
+// Industry Tab Switch
+var industryTabs = document.querySelectorAll('.industry-tab');
+industryTabs.forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    industryTabs.forEach(function(t) { t.classList.remove('active'); });
+    tab.classList.add('active');
+  });
+});
+
+// Tracking System
+function sfTrackParcel() {
+  var input = document.getElementById('sfWaybillInput');
+  if(!input) return;
+  var code = input.value.trim().toUpperCase();
+  
+  if(code === 'SF6583740') {
+    var overlay = document.getElementById('sfLoadingOverlay');
+    overlay.style.display = 'flex';
+    setTimeout(function() {
+      overlay.style.display = 'none';
+      document.getElementById('sfTrackingResult').style.display = 'flex';
+      sfInitRouteMap();
+    }, 3000);
+  } else {
+    alert('Vă rugăm să introduceți un număr AWB valid!');
+  }
+}
+
+// Route map: Copenhagen, Denmark -> Suceava, Romania (multi-country air route)
+var sfRouteMapInstance = null;
+var sfPlaneMarker = null;
+var sfPlaneAnim = null;
+function sfInitRouteMap() {
+  if (sfRouteMapInstance) {
+    setTimeout(function(){ sfRouteMapInstance.invalidateSize(); }, 100);
+    return;
+  }
+  if (typeof L === 'undefined') return;
+
+  // Route waypoints — Copenhagen → Berlin → Prague → Bratislava → Budapest → Suceava
+  var copenhagen = [55.6761, 12.5683];   // Origin / current parcel location (Denmark)
+  var berlin     = [52.5200, 13.4050];
+  var prague     = [50.0755, 14.4378];
+  var bratislava = [48.1486, 17.1077];
+  var budapest   = [47.4979, 19.0402];
+  var suceava    = [47.6385, 26.2510];     // Destination (Romania)
+
+  var route = [copenhagen, berlin, prague, bratislava, budapest, suceava];
+  var transit = [
+    { pt: berlin,     label: 'Berlin, Germania' },
+    { pt: prague,     label: 'Praga, Cehia' },
+    { pt: bratislava, label: 'Bratislava, Slovacia' },
+    { pt: budapest,   label: 'Budapesta, Ungaria' }
+  ];
+
+  sfRouteMapInstance = L.map('sfRouteMap', { scrollWheelZoom: false }).setView([50.8, 18.5], 5);
+
+  // Tile layer — Esri World Street Map (embeddable, no referrer/UA blocks like OSM)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri — Source: Esri, HERE, Garmin, USGS',
+    maxZoom: 18
+  }).addTo(sfRouteMapInstance);
+
+  // Dashed red air-route line through all waypoints
+  L.polyline(route, {
+    color: '#DC1E32', weight: 4, dashArray: '10,8', opacity: 0.95, lineCap: 'round'
+  }).addTo(sfRouteMapInstance);
+
+  // Origin marker (Copenhagen) — current parcel location
+  L.circleMarker(copenhagen, {
+    radius: 11, color: '#fff', weight: 3,
+    fillColor: '#DC1E32', fillOpacity: 1
+  }).addTo(sfRouteMapInstance).bindPopup('Locația curentă: Copenhaga, Danemarca');
+
+  // Intermediate transit markers (small navy dots)
+  transit.forEach(function(t){
+    L.circleMarker(t.pt, {
+      radius: 5, color: '#fff', weight: 2,
+      fillColor: '#002c5f', fillOpacity: 1
+    }).addTo(sfRouteMapInstance).bindPopup('Tranzit aerian: ' + t.label);
+  });
+
+  // Destination marker (Suceava)
+  var destIcon = L.divIcon({
+    html: '<div style="background:#002c5f;color:#fff;border:3px solid #fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.4);">📍</div>',
+    className: '', iconSize: [26, 26], iconAnchor: [13, 13]
+  });
+  L.marker(suceava, { icon: destIcon }).addTo(sfRouteMapInstance).bindPopup('Destinație: Suceava, România');
+
+  // Animated airplane icon moving along the route
+  var planeIcon = L.divIcon({
+    html: '<div style="font-size:24px;line-height:1;transform:rotate(0deg);filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));">✈️</div>',
+    className: '', iconSize: [24, 24], iconAnchor: [12, 12]
+  });
+  sfPlaneMarker = L.marker(copenhagen, { icon: planeIcon }).addTo(sfRouteMapInstance);
+
+  // Build a fine-grained list of points along the route (segments between waypoints)
+  var seg = [];
+  for (var i = 0; i < route.length - 1; i++) {
+    var a = route[i], b = route[i+1];
+    for (var s = 0; s < 40; s++) {
+      var f = s / 40;
+      seg.push([a[0] + (b[0]-a[0])*f, a[1] + (b[1]-a[1])*f]);
+    }
+  }
+  seg.push(route[route.length - 1]);
+
+  var idx = 0;
+  function animatePlane() {
+    var p = seg[idx];
+    var prev = seg[Math.max(0, idx - 1)];
+    var bearing = Math.atan2(p[1]-prev[1], p[0]-prev[0]) * 180 / Math.PI + 90;
+    sfPlaneMarker.setLatLng(p);
+    var el = sfPlaneMarker.getElement();
+    if (el) {
+      var inner = el.querySelector('div');
+      if (inner) inner.style.transform = 'rotate(' + bearing + 'deg)';
+    }
+    idx = (idx + 1) % seg.length;
+  }
+  sfPlaneAnim = setInterval(animatePlane, 120);
+
+  // Fit bounds to show the full route with padding
+  sfRouteMapInstance.fitBounds(route, { padding: [40, 40] });
+  setTimeout(function(){ sfRouteMapInstance.invalidateSize(); }, 200);
+}
+
+function sfCloseResult() {
+  document.getElementById('sfTrackingResult').style.display = 'none';
+  if (sfPlaneAnim) { clearInterval(sfPlaneAnim); sfPlaneAnim = null; }
+}
+
+// Close modal when clicking outside
+document.getElementById('sfTrackingResult').addEventListener('click', function(e) {
+  if(e.target === this) sfCloseResult();
+});
+
+// Mobile menu
+var menuBtn = document.querySelector('.header-menu-btn');
+if(menuBtn) {
+  menuBtn.addEventListener('click', function() {
+    var nav = document.querySelector('.header-nav');
+    if(nav.style.display === 'flex') {
+      nav.style.display = 'none';
+    } else {
+      nav.style.display = 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.position = 'absolute';
+      nav.style.top = '60px';
+      nav.style.left = '0';
+      nav.style.right = '0';
+      nav.style.background = '#1a1a2e';
+      nav.style.padding = '20px';
+      nav.style.gap = '15px';
+    }
+  });
+}
+</script>
+</body>
+</html>
