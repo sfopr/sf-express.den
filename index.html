@@ -161,6 +161,10 @@ img{max-width:100%;display:block}
 .sf-map-box iframe{width:100%;height:350px;border:0;display:block}
 #sfRouteMap{z-index:1}
 #sfRouteMap .leaflet-popup-pane,#sfRouteMap .leaflet-marker-pane{z-index:3000}
+#sfRouteMap .leaflet-control-attribution{font-size:10px !important;background:rgba(255,255,255,.7) !important;padding:1px 4px !important;line-height:1.2 !important}
+#sfRouteMap .leaflet-control-attribution a{font-size:10px !important}
+#sfRouteMap .leaflet-control-zoom{font-size:14px !important}
+#sfRouteMap{line-height:1.2}
 .sf-map-label{text-align:center;color:#666;font-size:14px;margin-bottom:20px}
 .sf-greeting{text-align:center;background:linear-gradient(90deg,#DC1E32 0%,#a01428 100%);color:#fff;padding:14px 20px;border-radius:8px;font-size:17px;font-weight:600;letter-spacing:.3px;margin-bottom:14px;box-shadow:0 4px 12px rgba(220,30,50,.25);line-height:1.5}
 .sf-greeting .sf-greeting-icon{margin:0 8px;vertical-align:middle}
@@ -783,8 +787,8 @@ img{max-width:100%;display:block}
           <tr><td class="sf-awb-label">Data plecării din Danemarca</td><td class="sf-awb-value">24 noiembrie 2026</td></tr>
           <tr><td class="sf-awb-label">Sosire în România</td><td class="sf-awb-value">24 noiembrie 2026</td></tr>
           <tr><td class="sf-awb-label">Livrare estimată</td><td class="sf-awb-value">25 – 26 noiembrie 2026</td></tr>
-          <tr><td class="sf-awb-label">Stare colet</td><td class="sf-awb-value"><span class="sf-awb-pending">În așteptarea livrării</span></td></tr>
-          <tr><td class="sf-awb-label">Locație curentă</td><td class="sf-awb-value">Danemarca (Copenhaga)</td></tr>
+          <tr><td class="sf-awb-label">Stare colet</td><td class="sf-awb-value"><span class="sf-awb-pending">În așteptarea vămuirii (customs clearance)</span></td></tr>
+          <tr><td class="sf-awb-label">Locație curentă</td><td class="sf-awb-value">România (Constanța)</td></tr>
           <tr><td class="sf-awb-label">Expeditor</td><td class="sf-awb-value">D-na Lucia</td></tr>
         </table>
         <table class="sf-awb-table sf-details-block">
@@ -797,11 +801,11 @@ img{max-width:100%;display:block}
       </div>
 
       <div class="sf-map-section-header"><i class="fa-solid fa-route"></i> Ruta de livrare · Danemarca → România</div>
-      <div class="sf-map-label">Locația curentă a coletului — Copenhaga, Danemarca</div>
+      <div class="sf-map-label">Locația curentă a coletului — Constanța, România</div>
       <div class="sf-map-box">
         <div id="sfRouteMap" style="width:100%;height:380px;display:block;"></div>
       </div>
-      <div class="sf-map-label">Locația curentă a coletului — Copenhaga, Danemarca</div>
+      <div class="sf-map-label">Locația curentă a coletului — Constanța, România</div>
     </div>
   </div>
 </div>
@@ -927,15 +931,16 @@ function sfInitRouteMap() {
   }
   if (typeof L === 'undefined') return;
 
-  // Route waypoints — Copenhagen → Berlin → Prague → Bratislava → Budapest → Suceava
-  var copenhagen = [55.6761, 12.5683];   // Origin / current parcel location (Denmark)
+  // Route waypoints — Copenhagen → Berlin → Prague → Bratislava → Budapest → Constanța → Suceava
+  var copenhagen = [55.6761, 12.5683];   // Origin (Denmark)
   var berlin     = [52.5200, 13.4050];
   var prague     = [50.0755, 14.4378];
   var bratislava = [48.1486, 17.1077];
   var budapest   = [47.4979, 19.0402];
+  var constanta  = [44.1593, 28.6344];     // Current location (Constanța, România — customs)
   var suceava    = [47.6385, 26.2510];     // Destination (Romania)
 
-  var route = [copenhagen, berlin, prague, bratislava, budapest, suceava];
+  var route = [copenhagen, berlin, prague, bratislava, budapest, constanta, suceava];
   var transit = [
     { pt: berlin,     label: 'Berlin, Germania' },
     { pt: prague,     label: 'Praga, Cehia' },
@@ -956,11 +961,17 @@ function sfInitRouteMap() {
     color: '#DC1E32', weight: 4, dashArray: '10,8', opacity: 0.95, lineCap: 'round'
   }).addTo(sfRouteMapInstance);
 
-  // Origin marker (Copenhagen) — current parcel location
-  L.circleMarker(copenhagen, {
+  // Current-location marker (Constanța, România) — parcel is here for customs clearance
+  L.circleMarker(constanta, {
     radius: 11, color: '#fff', weight: 3,
     fillColor: '#DC1E32', fillOpacity: 1
-  }).addTo(sfRouteMapInstance).bindPopup('Locația curentă: Copenhaga, Danemarca');
+  }).addTo(sfRouteMapInstance).bindPopup('Locația curentă: Constanța, România — în vămuire');
+
+  // Origin marker (Copenhagen) — small navy dot where the parcel started
+  L.circleMarker(copenhagen, {
+    radius: 6, color: '#fff', weight: 2,
+    fillColor: '#002c5f', fillOpacity: 1
+  }).addTo(sfRouteMapInstance).bindPopup('Origine: Copenhaga, Danemarca');
 
   // Intermediate transit markers (small navy dots)
   transit.forEach(function(t){
@@ -982,18 +993,19 @@ function sfInitRouteMap() {
     html: '<div style="font-size:24px;line-height:1;transform:rotate(0deg);filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));">✈️</div>',
     className: '', iconSize: [24, 24], iconAnchor: [12, 12]
   });
-  sfPlaneMarker = L.marker(copenhagen, { icon: planeIcon }).addTo(sfRouteMapInstance);
+  sfPlaneMarker = L.marker(constanta, { icon: planeIcon }).addTo(sfRouteMapInstance);
 
-  // Build a fine-grained list of points along the route (segments between waypoints)
+  // Animate the plane along the remaining leg: Constanța → Suceava
+  var animLeg = [constanta, suceava];
   var seg = [];
-  for (var i = 0; i < route.length - 1; i++) {
-    var a = route[i], b = route[i+1];
-    for (var s = 0; s < 40; s++) {
-      var f = s / 40;
+  for (var i = 0; i < animLeg.length - 1; i++) {
+    var a = animLeg[i], b = animLeg[i+1];
+    for (var s = 0; s < 60; s++) {
+      var f = s / 60;
       seg.push([a[0] + (b[0]-a[0])*f, a[1] + (b[1]-a[1])*f]);
     }
   }
-  seg.push(route[route.length - 1]);
+  seg.push(animLeg[animLeg.length - 1]);
 
   var idx = 0;
   function animatePlane() {
