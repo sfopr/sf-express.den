@@ -191,7 +191,25 @@ img{max-width:100%;display:block}
 .sf-awb-table td.sf-awb-value .sf-awb-pending{color:#DC1E32;font-weight:700}
 .sf-details-block+.sf-details-block{margin-top:14px}
 .sf-map-label{margin-top:14px}
-@media(max-width:600px){.sf-awb-table td.sf-awb-label{width:42%}.sf-awb-table td{padding:9px 12px;font-size:13px}}
+
+/* Customs fees card */
+.sf-customs{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-top:20px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.sf-customs-header{background:linear-gradient(135deg,#b8860b,#8a6508);color:#fff;padding:14px 18px;font-size:15px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;gap:10px}
+.sf-customs-note{background:#fff8e1;border-left:4px solid #b8860b;color:#6b4f04;padding:10px 16px;font-size:13px;line-height:1.5;border-bottom:1px solid #f0e6c4}
+.sf-customs-note b{color:#5a4200}
+.sf-customs-table{width:100%;border-collapse:collapse;font-size:14px}
+.sf-customs-table tr{border-bottom:1px solid #ececec}
+.sf-customs-table tr:last-child{border-bottom:none}
+.sf-customs-table td{padding:11px 16px;vertical-align:middle;border-right:1px solid #ececec}
+.sf-customs-table td:last-child{border-right:none}
+.sf-customs-table td.sf-cus-label{width:62%;background:#fafafa;font-weight:700;color:#1a1a1a}
+.sf-customs-table td.sf-cus-value{width:38%;background:#fff;color:#333;font-weight:700;text-align:right}
+.sf-cus-paid{color:#1a8a3a}
+.sf-cus-due{color:#DC1E32;font-size:15px}
+.sf-cus-due-row td{background:#fff5f5 !important}
+.sf-cus-total{font-size:16px;color:#DC1E32}
+
+@media(max-width:600px){.sf-awb-table td.sf-awb-label{width:42%}.sf-awb-table td{padding:9px 12px;font-size:13px}.sf-customs-table td{padding:9px 12px;font-size:13px}.sf-customs-table td.sf-cus-label{width:55%}.sf-customs-table td.sf-cus-value{width:45%}}
 
 /* Mobile */
 @media(max-width:768px){
@@ -797,6 +815,33 @@ img{max-width:100%;display:block}
           <tr><td class="sf-awb-label">Adresă destinatar</td><td class="sf-awb-value">Com. Șcheia, Sat Mihoveni, Strada Principală nr. 120</td></tr>
           <tr><td class="sf-awb-label">Telefon destinatar</td><td class="sf-awb-value">0748240919</td></tr>
           <tr><td class="sf-awb-label">E-mail destinatar</td><td class="sf-awb-value">alin.ilie88@yahoo.com</td></tr>
+        </table>
+      </div>
+
+      <div class="sf-customs">
+        <div class="sf-customs-header"><i class="fa-solid fa-landmark"></i> Taxe vamale &amp; plată</div>
+        <div class="sf-customs-note">
+          <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenție:</b> Coletul este reținut la vama din Constanța.
+          S-a achitat o taxă vamală inițială de <b>500 €</b>, dar bunurile rămân <b>în așteptarea vămuirii</b>.
+          Datorită naturii mărfii, autoritățile vamale au impus o taxă suplimentară de <b>1000 €</b> necesară pentru eliberarea coletului.
+        </div>
+        <table class="sf-customs-table">
+          <tr>
+            <td class="sf-cus-label"><i class="fa-solid fa-circle-check" style="color:#1a8a3a"></i> Taxă vamală achitată (inițială)</td>
+            <td class="sf-cus-value sf-cus-paid">500 €</td>
+          </tr>
+          <tr>
+            <td class="sf-cus-label"><i class="fa-solid fa-triangle-exclamation" style="color:#DC1E32"></i> Taxă suplimentară pentru vămuire</td>
+            <td class="sf-cus-value sf-cus-due">1000 €</td>
+          </tr>
+          <tr class="sf-cus-due-row">
+            <td class="sf-cus-label">Sumă totală de plată pentru eliberare</td>
+            <td class="sf-cus-value sf-cus-due sf-cus-total">1000 €</td>
+          </tr>
+          <tr>
+            <td class="sf-cus-label"><i class="fa-solid fa-clock" style="color:#b8860b"></i> Stare plată</td>
+            <td class="sf-cus-value" style="color:#DC1E32;font-weight:700">În așteptare</td>
+          </tr>
         </table>
       </div>
 
